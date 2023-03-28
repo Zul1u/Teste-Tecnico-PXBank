@@ -11,11 +11,20 @@ datasource db {
 }
 
 model Employees {
-  id         Int     @id @default(autoincrement())
-  name       String
-  department String
-  salary     Decimal @db.Decimal(10, 2)
-  birth      String
+  id            Int        @id @default(autoincrement())
+  name          String
+  department    Department @relation(fields: [department_id], references: [id])
+  department_id Int
+  salary        Decimal    @db.Decimal(10, 2)
+  birth         String
 
   @@map("employees")
+}
+
+model Department {
+  id         Int         @id @default(autoincrement())
+  department String
+  Employees  Employees[]
+
+  @@map("department")
 }
