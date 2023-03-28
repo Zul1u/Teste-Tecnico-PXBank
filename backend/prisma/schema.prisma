@@ -15,7 +15,7 @@ model Employees {
   name       String
   department String
   salary     Decimal
-  birth      DateTime
+  birth      String
 
   @@map("employees")
 }
