@@ -23,7 +23,7 @@ model Employees {
 
 model Department {
   id         Int         @id @default(autoincrement())
-  department String
+  department_name String
   Employees  Employees[]
 
   @@map("department")
