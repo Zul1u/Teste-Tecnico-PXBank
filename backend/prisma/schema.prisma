@@ -11,10 +11,10 @@ datasource db {
 }
 
 model Employees {
-  id         Int      @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   name       String
   department String
-  salary     Decimal
+  salary     Decimal @db.Decimal(10, 2)
   birth      String
 
   @@map("employees")
