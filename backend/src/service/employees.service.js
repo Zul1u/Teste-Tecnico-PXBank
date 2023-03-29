@@ -8,11 +8,7 @@ async function getAllEmployees() {
       name: true,
       salary: true,
       birth: true,
-      department: {
-        select: {
-          department_name: true,
-        },
-      },
+      department: true,
     },
   });
   return allEmployees;
@@ -26,11 +22,7 @@ async function getOneEmployees(emplyeeId) {
       name: true,
       salary: true,
       birth: true,
-      department: {
-        select: {
-          department_name: true,
-        },
-      },
+      department: true,
     },
   });
   if (employee === null) throw CustomError.notFoundEmployee;
