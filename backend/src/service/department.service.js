@@ -5,6 +5,11 @@ async function getAllDepartment() {
   return allDepartments;
 }
 
+async function getOneDepartment(departmentId) {
+  const allDepartments = await prismaClient.department.findFirst({ where: { id: departmentId } });
+  return allDepartments;
+}
+
 async function createNewDepartment(departmentData) {
   const newDepartment = await prismaClient.department.create({
     data: { ...departmentData },
@@ -26,6 +31,7 @@ async function deleteDepartment(departmentId) {
 
 module.exports = {
   getAllDepartment,
+  getOneDepartment,
   createNewDepartment,
   updateDepartment,
   deleteDepartment,
