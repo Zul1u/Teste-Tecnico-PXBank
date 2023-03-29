@@ -4,10 +4,12 @@ import Employees from './pages/Employees';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/employees" />} />
-      <Route path="/employees" element={<Employees />} />
-    </Routes>
+    <main>
+      <Routes>
+        <Route path="/" element={<Navigate to="/employees" />} />
+        <Route path="/employees" element={<Employees />} />
+      </Routes>
+    </main>
   );
 }
 
