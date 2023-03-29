@@ -1,4 +1,5 @@
 const prismaClient = require('../dataBase/prismaClient');
+const CustomError = require('../middleware/errors/customError');
 
 async function getAllEmployees() {
   const allEmployees = await prismaClient.employees.findMany({
@@ -32,6 +33,7 @@ async function getOneEmployees(emplyeeId) {
       },
     },
   });
+  if (employee === null) throw CustomError.notFoundEmployee;
   return employee;
 }
 
@@ -43,18 +45,28 @@ async function addNewEmployee(emplyeeData) {
 }
 
 async function updateEmployee(emplyeeId, emplyeeData) {
-  const updatedEmployee = await prismaClient.employees.update({
-    where: { id: emplyeeId },
-    data: { ...emplyeeData },
-  });
-  return updatedEmployee;
+  try {
+    const updatedEmployee = await prismaClient.employees.update({
+      where: { id: emplyeeId },
+      data: { ...emplyeeData },
+    });
+    return updatedEmployee;
+  } catch (error) {
+    console.log(error);
+    throw CustomError.notFoundEmployee;
+  }
 }
 
 async function deleteEmployee(emplyeeId) {
-  const deletedEmployee = await prismaClient.employees.delete({
-    where: { id: emplyeeId },
-  });
-  return deletedEmployee;
+  try {
+    const deletedEmployee = await prismaClient.employees.delete({
+      where: { id: emplyeeId },
+    });
+    return deletedEmployee;
+  } catch (error) {
+    console.log(error);
+    throw CustomError.notFoundEmployee;
+  }
 }
 
 module.exports = {
