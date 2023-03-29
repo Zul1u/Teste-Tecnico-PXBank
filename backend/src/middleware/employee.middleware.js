@@ -11,9 +11,10 @@ async function checksDepartmentId(req, _res, next) {
 
 async function checksBodyData(req, _res, next) {
   const { name, salary, birth } = req.body;
+  const REGEX_DATE = /(\d{2})[-./](\d{2})[-./](\d{4})/;
   if (typeof salary !== 'number') throw CustomError.salaryTypeError;
   if (typeof name !== 'string' || name.length <= 3) throw CustomError.nameTypeError;
-  if (typeof birth !== 'string' || birth.length !== 10) throw CustomError.birthTypeError;
+  if (typeof birth !== 'string' || !REGEX_DATE.test(birth)) throw CustomError.birthTypeError;
 
   next();
 }
