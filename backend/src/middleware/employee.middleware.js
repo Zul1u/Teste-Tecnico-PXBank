@@ -3,7 +3,7 @@ const CustomError = require('./errors/customError');
 
 async function checksDepartmentId(req, _res, next) {
   const { department_id: departmentId } = req.body;
-  if (typeof departmentId !== 'number') throw CustomError.department_idTypeError;
+  if (typeof departmentId !== 'number') throw CustomError.departmentIdTypeError;
   const department = await departmentService.getOneDepartment(departmentId);
   if (department === null) throw CustomError.notFoundDepartment;
   next();

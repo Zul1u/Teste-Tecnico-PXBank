@@ -1,4 +1,5 @@
 const prismaClient = require('../dataBase/prismaClient');
+const CustomError = require('../middleware/errors/customError');
 
 async function getAllDepartment() {
   const allDepartments = await prismaClient.department.findMany();
@@ -18,15 +19,25 @@ async function createNewDepartment(departmentData) {
 }
 
 async function updateDepartment(departmentId, departmentData) {
-  const updatedDepartment = await prismaClient.department.update({
-    where: { id: departmentId }, data: { ...departmentData },
-  });
-  return updatedDepartment;
+  try {
+    const updatedDepartment = await prismaClient.department.update({
+      where: { id: departmentId }, data: { ...departmentData },
+    });
+    return updatedDepartment;
+  } catch (error) {
+    console.log(error);
+    throw CustomError.notFoundDepartment;
+  }
 }
 
 async function deleteDepartment(departmentId) {
-  const deletedDepartment = await prismaClient.department.delete({ where: { id: departmentId } });
-  return deletedDepartment;
+  try {
+    const deletedDepartment = await prismaClient.department.delete({ where: { id: departmentId } });
+    return deletedDepartment;
+  } catch (error) {
+    console.log(error);
+    throw CustomError.notFoundDepartment;
+  }
 }
 
 module.exports = {
