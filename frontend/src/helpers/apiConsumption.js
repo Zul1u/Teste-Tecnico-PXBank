@@ -14,7 +14,7 @@ const getAllEmployees = async () => {
   }
 };
 
-const getAllDepartment = async () => {
+const getAllDepartments = async () => {
   try {
     const response = await instance.get('/department');
     return response;
@@ -26,5 +26,5 @@ const getAllDepartment = async () => {
 
 export {
   getAllEmployees,
-  getAllDepartment,
+  getAllDepartments,
 };
