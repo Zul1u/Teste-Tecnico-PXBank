@@ -4,8 +4,10 @@ import EmployeeTable from '../components/EmployeeTable';
 import GenericModal from '../components/GenericModal';
 import SearchBar from '../components/SearchBar';
 import Context from '../contexts/Context';
-import { getAllEmployees, getAllDepartments, postNewEmployee } from '../helpers/apiConsumption';
-import { brasilianDate, dateClassPattern } from '../helpers/dateConverter';
+import {
+  getAllEmployees, getAllDepartments, postNewEmployee, getOneEmployees, putEditEmployee,
+} from '../helpers/apiConsumption';
+import { americanDate, brasilianDate, dateClassPattern } from '../helpers/dateConverter';
 import { formatCPF, validateCPF } from '../helpers/validateCPF';
 
 export default function Employees() {
@@ -24,7 +26,9 @@ export default function Employees() {
     employeeBirth: '',
   });
   const [openNewEmployee, setOpenNewEmployee] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [disabledBtn, setDisabledBtn] = useState(true);
+  const [employeeId, setEmployeeId] = useState(0);
 
   const { setDepartmentList } = useContext(Context);
 
@@ -85,6 +89,8 @@ export default function Employees() {
     setSearchBarFormValue((pvState) => ({ ...pvState, [name]: value }));
   };
 
+  const formatSalary = (salary) => salary.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+
   const handleChangeEmployeeFormState = ({ target: { value, name } }) => {
     if (name === 'employeeCPF') {
       return setEmployeeFormValue((pvState) => ({ ...pvState, [name]: formatCPF(value) }));
@@ -92,13 +98,32 @@ export default function Employees() {
     if (name === 'employeeSalary') {
       const numbersInput = value.replace(/\D/g, '');
       const decimalSalary = Number(numbersInput) / 100;
-      const formatSalary = decimalSalary
-        .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
       return setEmployeeFormValue((pvState) => ({
-        ...pvState, [name]: decimalSalary, formattedSalary: formatSalary,
+        ...pvState, [name]: decimalSalary, formattedSalary: formatSalary(decimalSalary),
       }));
     }
     return setEmployeeFormValue((pvState) => ({ ...pvState, [name]: value }));
+  };
+
+  const handleOpenEditModal = async ({ target: { name: id } }) => {
+    setEmployeeId(id);
+    const { data } = await getOneEmployees(id);
+    const {
+      name,
+      department,
+      salary,
+      birth,
+      cpf,
+    } = data;
+    setOpenEditModal(true);
+    setEmployeeFormValue({
+      employeeName: name,
+      employeeCPF: cpf,
+      selectedValue: String(department.id),
+      formattedSalary: formatSalary(Number(salary)),
+      employeeSalary: Number(salary),
+      employeeBirth: americanDate(birth),
+    });
   };
 
   const closeModal = () => {
@@ -111,6 +136,7 @@ export default function Employees() {
       employeeBirth: '',
     });
     setOpenNewEmployee(false);
+    setOpenEditModal(false);
   };
 
   const submitNewEmployee = async () => {
@@ -135,6 +161,28 @@ export default function Employees() {
     closeModal();
   };
 
+  const submitEditEmployee = async () => {
+    const {
+      employeeBirth,
+      employeeName,
+      employeeCPF,
+      employeeSalary,
+      selectedValue,
+    } = employeeFormValue;
+
+    const employeeData = {
+      name: employeeName,
+      department_id: Number(selectedValue),
+      salary: employeeSalary,
+      birth: brasilianDate(employeeBirth),
+      cpf: employeeCPF,
+    };
+    await putEditEmployee(employeeData, employeeId);
+    const { data: allEmployess } = await getAllEmployees();
+    setEmployeesList(allEmployess);
+    closeModal();
+  };
+
   return (
     employeesList.length > 0 && (
       <div className="employee-screen-container">
@@ -142,7 +190,7 @@ export default function Employees() {
           searchBarForm={searchBarFormValue}
           handleChange={handleChangeSearchBarFormState}
         />
-        <EmployeeTable employeesList={filterEmployees} />
+        <EmployeeTable employeesList={filterEmployees} handleOpenEditModal={handleOpenEditModal} />
         <div className="add-new-employee">
           <button type="button" onClick={() => setOpenNewEmployee(true)}>Novo Funcionário</button>
         </div>
@@ -153,6 +201,18 @@ export default function Employees() {
           saveEmployee={submitNewEmployee}
         >
           <h1 className="modal-title">Novo Funcionário</h1>
+          <EmployeeForm
+            employeeFormState={employeeFormValue}
+            handleChange={handleChangeEmployeeFormState}
+          />
+        </GenericModal>
+        <GenericModal
+          isOpen={openEditModal}
+          isClosed={closeModal}
+          disabled={disabledBtn}
+          saveEmployee={submitEditEmployee}
+        >
+          <h1 className="modal-title">Editar Funcionário</h1>
           <EmployeeForm
             employeeFormState={employeeFormValue}
             handleChange={handleChangeEmployeeFormState}
