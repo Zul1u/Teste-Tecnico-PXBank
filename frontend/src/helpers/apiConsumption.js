@@ -54,10 +54,21 @@ const putEditEmployee = async (employeeData, id) => {
   }
 };
 
+const deleteEmployee = async (id) => {
+  try {
+    const response = await instance.delete(`/employee/${id}`);
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 export {
   getAllEmployees,
   getOneEmployees,
   getAllDepartments,
   postNewEmployee,
   putEditEmployee,
+  deleteEmployee,
 };

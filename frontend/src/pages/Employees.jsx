@@ -5,7 +5,12 @@ import GenericModal from '../components/GenericModal';
 import SearchBar from '../components/SearchBar';
 import Context from '../contexts/Context';
 import {
-  getAllEmployees, getAllDepartments, postNewEmployee, getOneEmployees, putEditEmployee,
+  getAllEmployees,
+  getAllDepartments,
+  postNewEmployee,
+  getOneEmployees,
+  putEditEmployee,
+  deleteEmployee,
 } from '../helpers/apiConsumption';
 import { americanDate, brasilianDate, dateClassPattern } from '../helpers/dateConverter';
 import { formatCPF, validateCPF } from '../helpers/validateCPF';
@@ -27,10 +32,13 @@ export default function Employees() {
   });
   const [openNewEmployee, setOpenNewEmployee] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [deleteEmployeeModal, setDeleteEmployeeModal] = useState(false);
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [employeeId, setEmployeeId] = useState(0);
 
   const { setDepartmentList } = useContext(Context);
+
+  const EXCLUDE = true;
 
   useEffect(() => {
     const getEmployees = async () => {
@@ -126,6 +134,18 @@ export default function Employees() {
     });
   };
 
+  const handleDeleteEmployeeModal = async ({ target: { name: id } }) => {
+    setEmployeeId(id);
+    const { data } = await getOneEmployees(id);
+    const { name, cpf } = data;
+    setDeleteEmployeeModal(true);
+    setEmployeeFormValue((pvState) => ({
+      ...pvState,
+      employeeName: name,
+      employeeCPF: cpf,
+    }));
+  };
+
   const closeModal = () => {
     setEmployeeFormValue({
       employeeName: '',
@@ -137,6 +157,7 @@ export default function Employees() {
     });
     setOpenNewEmployee(false);
     setOpenEditModal(false);
+    setDeleteEmployeeModal(false);
   };
 
   const submitNewEmployee = async () => {
@@ -183,6 +204,13 @@ export default function Employees() {
     closeModal();
   };
 
+  const submitDeletEmployee = async () => {
+    await deleteEmployee(employeeId);
+    const { data: allEmployess } = await getAllEmployees();
+    setEmployeesList(allEmployess);
+    closeModal();
+  };
+
   return (
     employeesList.length > 0 && (
       <div className="employee-screen-container">
@@ -190,10 +218,15 @@ export default function Employees() {
           searchBarForm={searchBarFormValue}
           handleChange={handleChangeSearchBarFormState}
         />
-        <EmployeeTable employeesList={filterEmployees} handleOpenEditModal={handleOpenEditModal} />
+        <EmployeeTable
+          employeesList={filterEmployees}
+          handleOpenEditModal={handleOpenEditModal}
+          handleDeleteEmployeeModal={handleDeleteEmployeeModal}
+        />
         <div className="add-new-employee">
           <button type="button" onClick={() => setOpenNewEmployee(true)}>Novo Funcionário</button>
         </div>
+
         <GenericModal
           isOpen={openNewEmployee}
           isClosed={closeModal}
@@ -206,6 +239,7 @@ export default function Employees() {
             handleChange={handleChangeEmployeeFormState}
           />
         </GenericModal>
+
         <GenericModal
           isOpen={openEditModal}
           isClosed={closeModal}
@@ -217,6 +251,24 @@ export default function Employees() {
             employeeFormState={employeeFormValue}
             handleChange={handleChangeEmployeeFormState}
           />
+        </GenericModal>
+
+        <GenericModal
+          isOpen={deleteEmployeeModal}
+          isClosed={closeModal}
+          saveEmployee={submitDeletEmployee}
+          exclude={EXCLUDE}
+        >
+          <section>
+            <h1 className="modal-title">Deseja excluir o funcionário abaixo?</h1>
+            <div className="employee-infos">
+              <p>{employeeFormValue.employeeName}</p>
+              <p>
+                <span>CPF: </span>
+                {employeeFormValue.employeeCPF}
+              </p>
+            </div>
+          </section>
         </GenericModal>
       </div>
     )

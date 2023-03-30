@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 
-export default function EmployeeTable({ employeesList, handleOpenEditModal }) {
+export default function EmployeeTable({
+  employeesList, handleOpenEditModal, handleDeleteEmployeeModal,
+}) {
   return (
     <table className="table-container">
       <thead className="table-header">
@@ -26,7 +28,7 @@ export default function EmployeeTable({ employeesList, handleOpenEditModal }) {
             <td>{emplyee.birth}</td>
             <td className="customize-employee">
               <button type="button" name={emplyee.id} className="edit-employee" onClick={handleOpenEditModal}>Editar</button>
-              <button type="button" name={emplyee.id} className="exclude-employee">Excluir</button>
+              <button type="button" name={emplyee.id} className="exclude-employee" onClick={handleDeleteEmployeeModal}>Excluir</button>
             </td>
           </tr>
         ))}
@@ -38,4 +40,5 @@ export default function EmployeeTable({ employeesList, handleOpenEditModal }) {
 EmployeeTable.propTypes = {
   employeesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   handleOpenEditModal: PropTypes.func.isRequired,
+  handleDeleteEmployeeModal: PropTypes.func.isRequired,
 };

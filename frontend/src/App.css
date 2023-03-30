@@ -214,3 +214,16 @@
   background-color: #084208;
   box-shadow: 0 0 0;
 }
+
+.employee-infos {
+  padding: 1.5rem;
+}
+
+.employee-infos p {
+  font-size: 2rem;
+  padding: 1rem 0;
+}
+
+.employee-infos span {
+  font-weight: 600;
+}

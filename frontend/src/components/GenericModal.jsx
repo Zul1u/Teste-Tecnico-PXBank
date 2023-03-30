@@ -21,7 +21,7 @@ export default function GenericModal({
               type="button"
               className="save-employee"
               onClick={saveEmployee}
-              disabled={!exclude ? disabled : exclude}
+              disabled={!exclude ? disabled : false}
             >
               {exclude ? 'Excluir' : 'Salvar'}
             </button>
