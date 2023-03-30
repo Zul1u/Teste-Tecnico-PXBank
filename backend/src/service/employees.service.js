@@ -22,6 +22,7 @@ async function getOneEmployees(emplyeeId) {
       name: true,
       salary: true,
       birth: true,
+      cpf: true,
       department: true,
     },
   });

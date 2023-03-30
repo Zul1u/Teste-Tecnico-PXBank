@@ -17,14 +17,15 @@ model Employees {
   department_id Int
   salary        Decimal    @db.Decimal(10, 2)
   birth         String
+  cpf           String     @unique
 
   @@map("employees")
 }
 
 model Department {
-  id         Int         @id @default(autoincrement())
+  id              Int         @id @default(autoincrement())
   department_name String
-  Employees  Employees[]
+  Employees       Employees[]
 
   @@map("department")
 }

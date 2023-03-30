@@ -17,6 +17,8 @@ class CustomError extends Error {
   static birthTypeError = new CustomError(400, 'birth must be of type string and have 10 characters');
 
   static departmentNameTypeError = new CustomError(400, 'department_name must be of type string and be at least 2 characters long');
+
+  static invalidCpf = new CustomError(400, 'Invalid CPF');
 }
 
 module.exports = CustomError;
