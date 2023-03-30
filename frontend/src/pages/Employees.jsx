@@ -45,17 +45,15 @@ export default function Employees() {
   };
 
   return (
-    <>
-      {employeesList.length > 0 && (
-        <div>
-          <SearchBar
-            searchBarForm={searchBarFormValue}
-            handleChange={handleChangeSearchBarFormState}
-          />
-          <EmployeeTable employeesList={filterEmployees} />
-        </div>
-      )}
-      <button type="button">Novo Funcionário</button>
-    </>
+    employeesList.length > 0 && (
+      <div className="employee-screen-container">
+        <SearchBar
+          searchBarForm={searchBarFormValue}
+          handleChange={handleChangeSearchBarFormState}
+        />
+        <EmployeeTable employeesList={filterEmployees} />
+        <button type="button">Novo Funcionário</button>
+      </div>
+    )
   );
 }

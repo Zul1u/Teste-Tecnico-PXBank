@@ -1,42 +1,46 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.main-container {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.employee-screen-container {
+  width: 70%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search-bar-container {
+  background-color: #dee2e6;
+  padding: 1.5rem 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.search-form-content {
+  display: flex;
+  justify-content: space-around;
 }
 
-.card {
-  padding: 2em;
+.search-form-content div {
+  width: 35%;
 }
 
-.read-the-docs {
-  color: #888;
+.search-input-container label {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.search-input-container input, select {
+  border: 0;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #10002b;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  padding: 0.3rem;
+  width: 100%;
+}
+
+.search-input-container input:focus-visible , select:focus-visible {
+  outline: none;
+  border-color: #212529;
 }
