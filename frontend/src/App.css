@@ -54,17 +54,18 @@
   font-weight: 600;
 }
 
-.search-input-container input, select {
+.search-input-container input, .search-input-container select {
   border: 0;
   background-color: #f8f9fa;
   border-bottom: 2px solid #10002b;
   border-radius: 5px;
   font-size: 1.6rem;
+  margin-top: 0.5rem;
   padding: 0.3rem;
   width: 100%;
 }
 
-.search-input-container input:focus-visible , select:focus-visible {
+.search-input-container input:focus-visible , .search-input-container select:focus-visible {
   outline: none;
   border-color: #212529;
 }
@@ -113,4 +114,43 @@
 .exclude-employee {
   background-color: #d00000;
   margin-left: 0.2rem;
+}
+
+/* EMPLOYEE FORM  */
+
+.employee-form-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.employee-form-input {
+  padding: 0.5rem 1rem;
+  width: 50%;
+}
+
+.employee-name-input {
+  width: 100%;
+}
+
+.employee-form-input label {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.employee-form-input input, .employee-form-input select {
+  border: 0;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #10002b;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.employee-form-input input:focus-visible , .employee-form-input select:focus-visible {
+  outline: none;
+  border-color: #212529;
 }
