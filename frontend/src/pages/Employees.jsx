@@ -51,23 +51,46 @@ export default function Employees() {
   }, []);
 
   useEffect(() => {
-    setFilterEmployees(employeesList);
+    const sortedListEmployees = employeesList.sort((a, b) => (
+      a.name.localeCompare(b.name, 'fr', { ignorePunctuation: true })
+    ));
+
+    setFilterEmployees(sortedListEmployees);
   }, [employeesList]);
+
+  const sortBySearchName = (employees, searchedName) => {
+    const filteredEmployees = employees.filter(({ name }) => (
+      name.toLowerCase().startsWith(searchedName)
+    ));
+
+    const nonFilteredEmployees = employees.filter(({ name }) => (
+      !name.toLowerCase().startsWith(searchedName)
+    ));
+    return filteredEmployees.concat(nonFilteredEmployees);
+  };
 
   useEffect(() => {
     const { inputName, selectedValue } = searchBarFormValue;
+    const lowercaseInputName = inputName.toLowerCase();
+
     if (selectedValue === '0') {
       const filteredEmployeesList = employeesList.filter(({ name }) => (
-        name.toLowerCase().includes(inputName.toLowerCase())
+        name.toLowerCase().includes(lowercaseInputName)
       ));
-      return setFilterEmployees(filteredEmployeesList);
+
+      const sortedList = sortBySearchName(filteredEmployeesList, lowercaseInputName);
+
+      return setFilterEmployees(sortedList);
     }
 
     const filteredEmployeesList = employeesList.filter(({ name, department: { id } }) => (
-      name.toLowerCase().includes(inputName.toLowerCase()) && id === +selectedValue
+      name.toLowerCase().includes(lowercaseInputName) && id === +selectedValue
     ));
-    return setFilterEmployees(filteredEmployeesList);
-  }, [searchBarFormValue]);
+
+    const sortedList = sortBySearchName(filteredEmployeesList, lowercaseInputName);
+
+    return setFilterEmployees(sortedList);
+  }, [searchBarFormValue, employeesList]);
 
   const validateEmployeeForm = () => {
     const {
