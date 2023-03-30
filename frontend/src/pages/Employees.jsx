@@ -52,7 +52,9 @@ export default function Employees() {
           handleChange={handleChangeSearchBarFormState}
         />
         <EmployeeTable employeesList={filterEmployees} />
-        <button type="button">Novo Funcionário</button>
+        <div className="add-new-employee">
+          <button type="button">Novo Funcionário</button>
+        </div>
       </div>
     )
   );

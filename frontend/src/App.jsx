@@ -6,7 +6,7 @@ import Provider from './contexts/Provider';
 function App() {
   return (
     <Provider>
-      <main>
+      <main className="main-container">
         <Routes>
           <Route path="/" element={<Navigate to="/employees" />} />
           <Route path="/employees" element={<Employees />} />

@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 
 export default function EmployeeTable({ employeesList }) {
   return (
-    <table>
-      <thead>
+    <table className="table-container">
+      <thead className="table-header">
         <tr>
           <th>Nome</th>
           <th>Departamento</th>
@@ -12,7 +12,7 @@ export default function EmployeeTable({ employeesList }) {
           <th>Editar/Excluir</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="table-body">
         {employeesList.map((emplyee) => (
           <tr key={emplyee.id}>
             <td>{emplyee.name}</td>
@@ -24,9 +24,9 @@ export default function EmployeeTable({ employeesList }) {
               })}
             </td>
             <td>{emplyee.birth}</td>
-            <td>
-              <button type="button">Editar</button>
-              <button type="button">Excluir</button>
+            <td className="customize-employee">
+              <button type="button" className="edit-employee">Editar</button>
+              <button type="button" className="exclude-employee">Excluir</button>
             </td>
           </tr>
         ))}

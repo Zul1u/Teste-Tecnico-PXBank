@@ -10,9 +10,33 @@
   width: 70%;
 }
 
+.add-new-employee {
+  text-align: start;
+}
+
+.add-new-employee button {
+  background-color: #0077b6;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px #252a2e;
+  color: #f8f9fa;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.5rem;
+}
+
+.add-new-employee button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 2px #252a2e;
+}
+
+/* SEARCH BAR  */
+
 .search-bar-container {
   background-color: #dee2e6;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0.2rem;
+  border-radius: 2px;
+  box-shadow: 2px 2px 4px #212529;
 }
 
 .search-form-content {
@@ -43,4 +67,50 @@
 .search-input-container input:focus-visible , select:focus-visible {
   outline: none;
   border-color: #212529;
+}
+
+/* TABLE  */
+
+.table-container {
+  border-collapse: collapse;
+  margin: 2rem 0;
+  text-align: center;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px #212529;
+}
+
+.table-container th, td {
+  border: 0.1rem solid #10002b;
+}
+
+.table-header th {
+  background-color: #ced4da;
+  color: #252a2e;
+  padding: 1rem;
+}
+
+.table-body td {
+  padding: 0.5rem 1rem;
+}
+
+.customize-employee button {
+  border: 0;
+  border-radius: 3px;
+  color: #f8f9fa;
+  font-weight: 600;
+}
+
+.customize-employee button:hover {
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.edit-employee {
+  background-color: #006400;
+}
+
+.exclude-employee {
+  background-color: #d00000;
+  margin-left: 0.2rem;
 }
