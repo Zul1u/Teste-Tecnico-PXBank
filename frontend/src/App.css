@@ -158,7 +158,6 @@
 /* MODAL  */
 
 .bg-modal {
-  border: 1px solid red;
   align-items: center;
   display: flex;
   height: 100vh;
@@ -208,5 +207,10 @@
 }
 
 .save-employee {
-  background-color: #006400;
+  background-color: #008100;
+}
+
+.save-employee:disabled {
+  background-color: #084208;
+  box-shadow: 0 0 0;
 }

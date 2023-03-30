@@ -24,7 +24,18 @@ const getAllDepartments = async () => {
   }
 };
 
+const postNewEmployee = async (employeeData) => {
+  try {
+    const response = await instance.post('/employee', employeeData);
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 export {
   getAllEmployees,
   getAllDepartments,
+  postNewEmployee,
 };

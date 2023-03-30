@@ -49,7 +49,7 @@ export default function EmployeeForm({ employeeFormState, handleChange }) {
                 id="employeeSalary"
                 placeholder="R$"
                 name="employeeSalary"
-                value={employeeFormState.employeeSalary}
+                value={employeeFormState.formattedSalary}
                 onChange={handleChange}
               />
             </label>
@@ -77,7 +77,7 @@ EmployeeForm.propTypes = {
     employeeName: PropTypes.string,
     employeeCPF: PropTypes.string,
     selectedValue: PropTypes.string,
-    employeeSalary: PropTypes.string,
+    formattedSalary: PropTypes.string,
     employeeBirth: PropTypes.string,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,

@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 
 export default function GenericModal({
-  children, isOpen, isClosed, saveEmployee, exclude,
+  children,
+  isOpen,
+  isClosed,
+  saveEmployee,
+  exclude,
+  disabled,
 }) {
   return (
     isOpen && (
@@ -12,7 +17,12 @@ export default function GenericModal({
             <button type="button" onClick={isClosed} className="close-modal">
               Cancelar
             </button>
-            <button type="button" className="save-employee" onClick={saveEmployee}>
+            <button
+              type="button"
+              className="save-employee"
+              onClick={saveEmployee}
+              disabled={!exclude ? disabled : exclude}
+            >
               {exclude ? 'Excluir' : 'Salvar'}
             </button>
           </div>
@@ -28,8 +38,10 @@ GenericModal.propTypes = {
   isClosed: PropTypes.func.isRequired,
   saveEmployee: PropTypes.func.isRequired,
   exclude: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 GenericModal.defaultProps = {
   exclude: false,
+  disabled: false,
 };
