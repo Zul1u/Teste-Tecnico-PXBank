@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import DepartmentSelect from './DepartmentSelect';
 
 export default function EmployeeForm({ employeeFormState, handleChange }) {
+  const FILTER = false;
+
   return (
     <section className="employee-form-container">
       <form className="employee-form">
@@ -15,6 +17,7 @@ export default function EmployeeForm({ employeeFormState, handleChange }) {
                 placeholder="Digite o seu nome completo"
                 name="employeeName"
                 value={employeeFormState.employeeName}
+                onChange={handleChange}
               />
             </label>
           </div>
@@ -27,6 +30,7 @@ export default function EmployeeForm({ employeeFormState, handleChange }) {
                 placeholder="___.___.___-__"
                 name="employeeCPF"
                 value={employeeFormState.employeeCPF}
+                onChange={handleChange}
               />
             </label>
           </div>
@@ -34,6 +38,7 @@ export default function EmployeeForm({ employeeFormState, handleChange }) {
             <DepartmentSelect
               selectedValue={employeeFormState.selectedValue}
               handleChange={handleChange}
+              filter={FILTER}
             />
           </div>
           <div className="employee-form-input">
@@ -45,6 +50,7 @@ export default function EmployeeForm({ employeeFormState, handleChange }) {
                 placeholder="R$"
                 name="employeeSalary"
                 value={employeeFormState.employeeSalary}
+                onChange={handleChange}
               />
             </label>
           </div>
@@ -56,6 +62,7 @@ export default function EmployeeForm({ employeeFormState, handleChange }) {
                 id="employeeBirth"
                 name="employeeBirth"
                 value={employeeFormState.employeeBirth}
+                onChange={handleChange}
               />
             </label>
           </div>

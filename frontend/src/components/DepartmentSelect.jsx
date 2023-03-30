@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../contexts/Context';
 
-export default function DepartmentSelect({ selectedValue, handleChange }) {
+export default function DepartmentSelect({ selectedValue, handleChange, filter }) {
   const { departmentList } = useContext(Context);
 
   return (
@@ -14,7 +14,7 @@ export default function DepartmentSelect({ selectedValue, handleChange }) {
         value={selectedValue}
         onChange={handleChange}
       >
-        <option value="0">Todos os Departamentos</option>
+        {filter && <option value="0">Todos os Departamentos</option>}
         {departmentList.map((department) => (
           <option key={department.id} value={department.id}>
             {department.department_name}
@@ -28,4 +28,9 @@ export default function DepartmentSelect({ selectedValue, handleChange }) {
 DepartmentSelect.propTypes = {
   selectedValue: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  filter: PropTypes.bool,
+};
+
+DepartmentSelect.defaultProps = {
+  filter: true,
 };

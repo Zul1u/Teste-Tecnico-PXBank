@@ -154,3 +154,59 @@
   outline: none;
   border-color: #212529;
 }
+
+/* MODAL  */
+
+.bg-modal {
+  border: 1px solid red;
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+}
+
+.modal-container {
+  border: 1px solid;
+  box-sizing: border-box;
+  background-color: #e5e8eb;
+  border-radius: 5px;
+  display: block;
+  width: 60%;
+}
+
+.modal-title {
+  color: #252a2e;
+  font-weight: 600;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.buttons-modal-container button{
+  border: 0;
+  border-radius: 3px;
+  box-shadow: 2px 2px 4px #212529;
+  color: #f8f9fa;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  margin: 1rem;
+  width: 20%;
+}
+
+.buttons-modal-container button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 2px #212529;
+}
+
+.close-modal {
+  background-color: #d00000;
+}
+
+.save-employee {
+  background-color: #006400;
+}
