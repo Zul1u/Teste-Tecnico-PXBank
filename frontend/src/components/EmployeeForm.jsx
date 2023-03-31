@@ -14,7 +14,7 @@ export default function EmployeeForm({ employeeFormState, handleChange }) {
               <input
                 type="text"
                 id="employeeName"
-                placeholder="Digite o seu nome completo"
+                placeholder="Digite o nome completo do funcionário"
                 name="employeeName"
                 value={employeeFormState.employeeName}
                 onChange={handleChange}
